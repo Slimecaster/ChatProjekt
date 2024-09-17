@@ -2,6 +2,7 @@ package com.example.chatprojekt.Repository;
 
 import com.example.chatprojekt.Model.Client;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -18,9 +19,25 @@ public class DBController {
         this.jdbcTemplate = jdbcTemplate;
     }
 
+    String sql;
+
+    public Client createUpdateUser (Client client){
+        try {
+            if(client.getClientname()==null){
+                sql="INSERT INTO client(clientname,password,) VALUES(?,?)";
+                jdbcTemplate.update(sql, client.getClientname(), client.getPassword());
+            }else{
+                sql = "UPDATE user SET clientname=?,password=?)";
+                jdbcTemplate.update(sql, client.getClientname(), client.getPassword());
+            }return client;
+        } catch(DataAccessException e){
+            throw new RuntimeException("Error creating user", e);
+        }
+    }
+
     public Optional<Client> findClientByClientname(String clientname) {
         try {
-            String sql = "SELECT * FROM user WHERE email = ?";
+            sql = "SELECT * FROM user WHERE clientname = ?";
             Client client = jdbcTemplate.queryForObject(sql, new Object[]{clientname}, clientRowMapper());
             return Optional.ofNullable(client);
         } catch (EmptyResultDataAccessException e) {
