@@ -24,10 +24,10 @@ public class DBController {
     public Client createUpdateUser (Client client){
         try {
             if(client.getClientname()==null){
-                sql="INSERT INTO client(clientname,password,) VALUES(?,?)";
+                sql="INSERT INTO client(clientname,password) VALUES(?,?)";
                 jdbcTemplate.update(sql, client.getClientname(), client.getPassword());
             }else{
-                sql = "UPDATE user SET clientname=?,password=?)";
+                sql = "UPDATE user SET clientname=?,password=? where clientname="+client.getClientname();
                 jdbcTemplate.update(sql, client.getClientname(), client.getPassword());
             }return client;
         } catch(DataAccessException e){
