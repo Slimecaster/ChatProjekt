@@ -19,15 +19,15 @@ public class DBController {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    String sql;
+
 
     public Client createUpdateUser (Client client){
         try {
             if(client.getClientname()==null){
-                sql="INSERT INTO client(clientname,password) VALUES(?,?)";
+                String sql="INSERT INTO client(clientname,password) VALUES(?,?)";
                 jdbcTemplate.update(sql, client.getClientname(), client.getPassword());
             }else{
-                sql = "UPDATE user SET clientname=?,password=? where clientname="+client.getClientname();
+                String sql = "UPDATE user SET clientname=?,password=? where clientname="+client.getClientname();
                 jdbcTemplate.update(sql, client.getClientname(), client.getPassword());
             }return client;
         } catch(DataAccessException e){
@@ -37,7 +37,7 @@ public class DBController {
 
     public Optional<Client> findClientByClientname(String clientname) {
         try {
-            sql = "SELECT * FROM user WHERE clientname = ?";
+            String sql = "SELECT * FROM user WHERE clientname = ?";
             Client client = jdbcTemplate.queryForObject(sql, new Object[]{clientname}, clientRowMapper());
             return Optional.ofNullable(client);
         } catch (EmptyResultDataAccessException e) {
