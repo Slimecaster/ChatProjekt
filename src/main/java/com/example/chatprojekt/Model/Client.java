@@ -1,15 +1,24 @@
 package com.example.chatprojekt.Model;
 
 public class Client {
-    private String clientname;
-    private String password;
+    private long clientID;
+    private String clientname,password;
 
     public Client() {
     }
 
-    public Client(String clientname, String password) {
+    public Client(long clientID, String clientname, String password) {
+        this.clientID = clientID;
         this.clientname = clientname;
         this.password = password;
+    }
+
+    public long getClientID() {
+        return clientID;
+    }
+
+    public void setClientID(long clientID) {
+        this.clientID = clientID;
     }
 
     public String getClientname() {

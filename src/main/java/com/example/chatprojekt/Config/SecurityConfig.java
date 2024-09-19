@@ -29,14 +29,11 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(registry->{
                     registry.requestMatchers("/","/login/register/**").permitAll();
-                    registry.requestMatchers("/admin/**").hasRole("ADMIN");
-                    registry.requestMatchers("/user/**").hasRole("USER");
                     registry.anyRequest().authenticated();
                 })
                 .formLogin(httpSecurityFormLoginConfigurer -> {
                     httpSecurityFormLoginConfigurer.loginPage("/login");
-                    httpSecurityFormLoginConfigurer.usernameParameter("email").passwordParameter("password")
-                            .successHandler(new AuthSuccHandler())
+                    httpSecurityFormLoginConfigurer.usernameParameter("clientname").passwordParameter("password")
                             .permitAll();
                 })
                 .logout(logout ->
