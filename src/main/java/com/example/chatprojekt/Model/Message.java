@@ -1,11 +1,7 @@
 package com.example.chatprojekt.Model;
 
-import com.fasterxml.jackson.databind.util.JSONPObject;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.thymeleaf.messageresolver.IMessageResolver;
-
-import java.io.*;
 
 public class Message {
     private String content;
@@ -46,15 +42,15 @@ public class Message {
         this.text = text;
     }
 
-    public void Recive_Message(MessageType messageType, int UserId, String text){
+    public void Recive_Message(MessageType messageType, int UserId, String text) {
         this.messageType = messageType;
         this.UserId = UserId;
         this.text = text;
     }
 
-    public void Recive_Message(Object json){
-        JSONObject obj = (JSONObject)json;
-        try{
+    public void Recive_Message(Object json) {
+        JSONObject obj = (JSONObject) json;
+        try {
             messageType = MessageType.toMessageType(obj.getInt("MessageType"));
             UserId = obj.getInt("UserId");
             text = obj.getString("text");
@@ -63,9 +59,17 @@ public class Message {
         }
     }
 
-
-
-
-
+    public JSONObject toJsonObject() {
+        try {
+            JSONObject json = new JSONObject();
+            json.put("messageType", messageType.getValue());
+            json.put("userId", UserId);
+            json.put("text", text);
+            return json;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
 
     }
+}
