@@ -1,6 +1,5 @@
 package com.example.chatprojekt.Model;
 
-import com.fasterxml.jackson.databind.util.JSONPObject;
 import org.json.JSONException;
 import org.json.JSONObject;
 
