@@ -1,13 +1,10 @@
 package com.example.chatprojekt.Model;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 public class Message {
     private String content;
     private MessageType messageType;
     private int UserId;
-    private String text;
+    private String sender;
 
 
     public String getContent() {
@@ -34,42 +31,18 @@ public class Message {
         UserId = userId;
     }
 
-    public String getText() {
-        return text;
+    public String getSender() {
+        return sender;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setSender(String sender) {
+        this.sender = sender;
     }
 
-    public void Recive_Message(MessageType messageType, int UserId, String text) {
+    public void Recive_Message(MessageType messageType, int UserId, String sender) {
         this.messageType = messageType;
         this.UserId = UserId;
-        this.text = text;
+        this.sender =sender;
     }
 
-    public void Recive_Message(Object json) {
-        JSONObject obj = (JSONObject) json;
-        try {
-            messageType = MessageType.toMessageType(obj.getInt("MessageType"));
-            UserId = obj.getInt("UserId");
-            text = obj.getString("text");
-        } catch (JSONException e) {
-            System.err.println(e);
-        }
-    }
-
-    public JSONObject toJsonObject() {
-        try {
-            JSONObject json = new JSONObject();
-            json.put("messageType", messageType.getValue());
-            json.put("userId", UserId);
-            json.put("text", text);
-            return json;
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return null;
-
-    }
 }
