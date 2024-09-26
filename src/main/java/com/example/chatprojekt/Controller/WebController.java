@@ -9,8 +9,11 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.OptionalDataException;
-
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 
 
 @Controller
@@ -32,7 +35,7 @@ public class WebController {
                     c.setName(d.getId()+"");
                     c.setBorder(new EmptyBorder(10,10,10,10));
                     c.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                    c.setC
+                    c.setContentAreaFilled(false);
                     panelDetail.add(c);
                 }
                 panelDetail.repaint();
@@ -41,5 +44,14 @@ public class WebController {
         });
         return cmd;
     }*/
+
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("h:mm a");
+        String timeStamp = simpleDateFormat.format(calendar.getTime());
+
+        public boolean isFile(File file) {
+            String fileName = file.getName().toLowerCase();
+            return fileName.endsWith(".txt");
+        }
 
 }

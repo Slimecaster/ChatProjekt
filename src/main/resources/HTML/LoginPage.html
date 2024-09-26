@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="/loginStyle.css">
+</head>
+<body>
+
+<h1>Login</h1>
+
+<form action="#" th:action="@{/login}" th:object="${loginForm}" method="post">
+    <div class="form-group">
+        <label for="mail">Mail:</label>
+        <input type="email" id="mail" name="username" placeholder="Email" required autofocus>
+    </div>
+    <br />
+    <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" placeholder="Password" required>
+    </div>
+    <br />
+    <div th:if="${loginError}" class="alert invalidLogin">
+        <p th:text="${loginError}"> Invalid email or password. </p>
+    </div>
+</form>
+     <br />
+      <p>Don't have an account yet? <a href="CreatUser.html">Create one</a></p>
+  </div>
+</body>
+</html>
